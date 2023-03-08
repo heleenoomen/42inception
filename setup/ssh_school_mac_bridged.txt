@@ -22,7 +22,7 @@ Terminal:
 
 Inside virtual machine:
 	ssh-keygen
-	click enter
+	# click enter
 	cat ./ssh/id_rsa.pub
 	# copy this public key
 

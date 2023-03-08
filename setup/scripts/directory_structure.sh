@@ -11,6 +11,7 @@ echo "Creating directory structure ..."
 # Create basic folder structure and print
 basic="project/srcs/requirements"
 mkdir -p $basic
+mkdir -p setup/scripts
 
 # Create makefile & gitignore
 cd project
@@ -41,4 +42,4 @@ echo "ls -laR -I.git"
 ls -laR
 
 #Copy this script to the project folder
-cp ../directory_structure.sh .
+cp ../directory_structure.sh setup/scripts

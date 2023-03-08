@@ -15,4 +15,4 @@ echo "**/.env" >> .gitignore
 git add .
 git commit -m "directory structure"
 
-
+cp ../git_init.sh setup/scripts
