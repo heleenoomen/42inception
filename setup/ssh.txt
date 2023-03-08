@@ -1,0 +1,39 @@
+******************************************************************
+* SETUP SSH connection from local terminal to Virtual Machine    *
+******************************************************************
+
+
+Virtualbox:
+	Settings -> Network -> Adapter1
+		Attached to: Bridged Adapter
+		Name: en0: Ethernet
+
+Inside virtual machine:
+	ip addr
+
+Terminal:
+	ssh <username>@<ip-addr>
+
+
+
+******************************************************************
+* CONNECT TO GITHUB						 *
+******************************************************************
+
+Inside virtual machine:
+	ssh-keygen
+	click enter
+	cat ./ssh/id_rsa.pub
+	# copy this public key
+
+On github:
+	profile->settings->keys->add new SSH key
+	paste the public key form the VM here, give it a name
+
+Inside virtual machine:
+	eval "$(ssh-agent)"
+	ssh-add ~/.ssh/id_rsa
+
+Now you should be ready to add the remote repository on github,
+fetch, push etc.
+	
