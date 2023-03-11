@@ -36,4 +36,8 @@ Inside virtual machine:
 
 Now you should be ready to add the remote repository on github,
 fetch, push etc.
+
+Next time on startup, if pushing to github gives an error, it means you
+will have to repeat the eval "$(ssh-agent)" and ssh-add ~/.ssh/id_rsa
+steps.
 	
