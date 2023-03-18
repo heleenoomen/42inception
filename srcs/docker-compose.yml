@@ -2,10 +2,10 @@ version: '3'
 
 services:
   nginx:
+    image: nginx
+    container_name: nginx
     build:
       context: requirements/nginx
-      dockerfile: Dockerfile
-    container_name: nginx
     depends_on:
       - wordpress
     ports:
@@ -17,15 +17,15 @@ services:
     restart: always
 
   mariadb:
+    image: mariadb
+    container_name: mariadb
     build:
-      context: .
-      dockerfile: requirements/mariadb/Dockerfile
+      context: requirements/mariadb
       args:
         DB_NAME: ${DB_NAME}
         DB_USER: ${DB_USER}
         DB_PASS: ${DB_PASS}
         DB_ROOT: ${DB_ROOT}
-    container_name: mariadb
     networks:
       - inception
     restart: always
@@ -33,14 +33,14 @@ services:
       - db-volume:/var/lib/mysql
 
   wordpress:
+    image: wordpress
+    container_name: wordpress
     build:
-      context: .
-      dockerfile: requirements/wordpress/Dockerfile
+      context: requirements/wordpress
       args:
         DB_NAME: ${DB_NAME}
         DB_USER: ${DB_USER}
         DB_PASS: ${DB_PASS}
-    container_name: wordpress
     depends_on:
       - mariadb
     restart: always

@@ -2,10 +2,8 @@
 
 if [ ! -d "/var/lib/mysql/mysql" ]; then
 
-        chown -R mysql:mysql /var/lib/mysql
-
         # init database
-        mysql_install_db --basedir=/usr --datadir=/var/lib/mysql --user=mysql --rpm
+        mysql_install_db --datadir=/var/lib/mysqld
 
         tfile=`mktemp`
         if [ ! -f "$tfile" ]; then
@@ -16,7 +14,6 @@ fi
 if [ ! -d "/var/lib/mysql/wordpress" ]; then
 
         cat << EOF > /tmp/create_db.sql
-USE mysql;
 FLUSH PRIVILEGES;
 DELETE FROM     mysql.user WHERE User='';
 DROP DATABASE test;
@@ -29,6 +26,7 @@ GRANT ALL PRIVILEGES ON wordpress.* TO '${DB_USER}'@'%';
 FLUSH PRIVILEGES;
 EOF
         # run init.sql
-        /usr/bin/mysqld --user=mysql --bootstrap < /tmp/create_db.sql
+        chmod +x tmp/create_db.sh
+        /usr/bin/mysqld --user=root --bootstrap --skip-grant-tables=0 < /tmp/create_db.sql
         rm -f /tmp/create_db.sql
 fi
