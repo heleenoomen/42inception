@@ -1,14 +1,18 @@
 #!bin/sh
 
+mkdir /var/run/mysqld
+
+sed -i "s|skip-networking|skip-networking=0|g" /etc/my.cnf.d/mariadb-server.cnf
+
 if [ ! -d "/var/lib/mysql/mysql" ]; then
 
         # init database
         mysql_install_db --datadir=/var/lib/mysqld
 
-        tfile=`mktemp`
-        if [ ! -f "$tfile" ]; then
-                return 1
-        fi
+#        tfile=`mktemp`
+#        if [ ! -f "$tfile" ]; then
+#                return 1
+#        fi
 fi
 
 if [ ! -d "/var/lib/mysql/wordpress" ]; then
