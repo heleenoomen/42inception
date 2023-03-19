@@ -14,7 +14,7 @@ services:
       - inception
     volumes:
       - wp-volume:/var/www/
-    restart: always
+    restart: unless-stopped
 
   mariadb:
     image: mariadb
@@ -28,7 +28,7 @@ services:
         DB_ROOT: ${DB_ROOT}
     networks:
       - inception
-    restart: always
+    restart: unless-stopped
     volumes:
       - db-volume:/var/lib/mysql
 
@@ -43,7 +43,7 @@ services:
         DB_PASS: ${DB_PASS}
     depends_on:
       - mariadb
-    restart: always
+    restart: unless-stopped
     networks:
       - inception
     volumes:
