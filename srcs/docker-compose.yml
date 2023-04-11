@@ -37,10 +37,18 @@ services:
     container_name: wordpress
     build:
       context: requirements/wordpress
-      args:
-        DB_NAME: ${DB_NAME}
-        DB_USER: ${DB_USER}
-        DB_PASS: ${DB_PASS}
+    environment:
+      DB_NAME: ${DB_NAME}
+      DB_USER: ${DB_USER}
+      DB_PASS: ${DB_PASS}
+      DOMAIN_NAME: ${DOMAIN_NAME}
+      DB_HOST: ${DB_HOST}
+      WP_ADMIN_USER: ${WP_ADMIN_USER}
+      WP_ADMIN_PASS: ${WP_ADMIN_PASS}
+      WP_ADMIN_MAIL: ${WP_ADMIN_MAIL}
+      WP_USER: ${WP_USER}
+      WP_USER_PASS: ${WP_USER_PASS}
+      WP_USER_MAIL: ${WP_USER_MAIL}
     depends_on:
       - mariadb
     restart: unless-stopped
