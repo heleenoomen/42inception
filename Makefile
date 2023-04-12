@@ -14,4 +14,7 @@ fclean: down
 	docker network prune --force
 	docker volume prune --force
 
+clear_local_volumes:
+	sudo rm -drf ~/data   
 
+ffclean: fclean clear_local_volumes

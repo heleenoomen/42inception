@@ -33,10 +33,10 @@ RUN 		apk update && apk upgrade && \
 			mariadb-client \
 			wget \
 			ranger
-COPY		./conf/setup_wordpress.sh .
+COPY		./conf/wp-config-create.sh .
 
-RUN 		chmod +x setup_wordpress.sh
+RUN 		chmod +x wp-config-create.sh
 
 WORKDIR 	/var/www/
 
-ENTRYPOINT	["sh", "../../setup_wordpress.sh"]
+ENTRYPOINT	["sh", "../../wp-config-create.sh"]

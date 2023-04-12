@@ -1,9 +1,16 @@
-FROM alpine:3.16
+FROM 		alpine:3.16.3
 
-RUN apk update && apk add --no-cache mariadb mariadb-client
+ARG			DB_NAME \
+    		DB_USER \
+    		DB_PASS \
+			DB_ROOT
 
-COPY conf/mariadb.sh .
+RUN 		apk update && apk add --no-cache mariadb mariadb-client
 
-RUN chmod +x mariadb.sh && sh mariadb.sh && rm mariadb.sh
+COPY 		./conf/mariadb.sh .
 
-ENTRYPOINT ["mysqld", "--user=root"]
+RUN 		chmod +x mariadb.sh && sh mariadb.sh && rm mariadb.sh
+
+USER 		mysql
+
+CMD 		["mysqld"]
