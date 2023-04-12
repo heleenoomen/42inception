@@ -1,7 +1,8 @@
 #!bin/sh
 
+# make a directory where mariadb can acces the mysqld.sock socket file
+# change the ownership, because we will run the daemon as the mysql user
 mkdir /var/run/mysqld
-#chmod 777 /var/run/mysqld
 chown -R mysql:mysql /var/run/mysqld
 
 # change the config file so TCP/IP is no longer disabled
@@ -13,10 +14,11 @@ sed -i "s/#bind-address/bind-address/g" /ect/my.cnf.d/mariadb-server.cnf
 if [ ! -d "/var/lib/mysql/mysql" ]; then
 
         # init database
-        mysql_install_db --basedir=/usr --datadir=/var/lib/mysql --user=mysql --rpm
+        mysql_install_db --basedir=/usr --datadir=/var/lib/mysql --user=mysql
 
 fi
 
+# check if the wordpress database exists. If not yet, create a temporary create_db.sql script to (1) secure the database and (2) add the wordpress database.
 if [ ! -d "/var/lib/mysql/wordpress" ]; then
 
         cat << EOF > /tmp/create_db.sql
@@ -32,7 +34,9 @@ CREATE USER '${DB_USER}'@'%' IDENTIFIED by '${DB_PASS}';
 GRANT ALL PRIVILEGES ON wordpress.* TO '${DB_USER}'@'%';
 FLUSH PRIVILEGES;
 EOF
-        # run init.sql
+        # run the mysql daemon with bootstrap so that it executes the .sql file
         /usr/bin/mysqld --user=mysql --bootstrap < /tmp/create_db.sql
+
+        # remove the .sql file that contains the credentials
         rm -f /tmp/create_db.sql
 fi
