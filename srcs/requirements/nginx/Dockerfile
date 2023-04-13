@@ -9,4 +9,3 @@ COPY conf/nginx.conf /etc/nginx/http.d
 EXPOSE 443
 
 CMD ["nginx", "-g", "daemon off;"]
-# TODO add rule to create key continuously (each time you start Docker, you generate new)
