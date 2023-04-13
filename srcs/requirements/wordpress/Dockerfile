@@ -28,11 +28,11 @@ RUN         wget $WP_CLI_URL; \
             chmod +x wp-cli.phar; \
             mv wp-cli.phar /usr/local/bin/wp
 
-COPY		conf/wp-config-create.sh .
+COPY		conf/php-wp-entrypoint.sh .
 
-RUN 		chmod +x wp-config-create.sh
+RUN 		chmod +x php-wp-entrypoint.sh
 
-ENTRYPOINT	["sh", "wp-config-create.sh"]
+ENTRYPOINT	["sh", "php-wp-entrypoint.sh"]
 
 # force to stay in foreground and ignore daemonize option from config file
 # see: https://linux.die.net/man/8/php-fpm
