@@ -11,6 +11,8 @@ sed -i "s/skip-networking/skip-networking=0/g" /etc/my.cnf.d/mariadb-server.cnf
 # change the config file so that bind-address=0.0.0.0 is no longer commented out (this means mariadb can now bind to any address)
 sed -i "s/#bind-address/bind-address/g" /ect/my.cnf.d/mariadb-server.cnf
 
+# check if the system tables where already created, in which case the directory /var/lib/mysql/mysql will exist.
+# If it does not exist, install the system tables and store the data in /var/lib/mysql
 if [ ! -d "/var/lib/mysql/mysql" ]; then
 
         # init database
