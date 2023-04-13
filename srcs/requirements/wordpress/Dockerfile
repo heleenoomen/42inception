@@ -32,8 +32,6 @@ COPY		conf/wp-config-create.sh .
 
 RUN 		chmod +x wp-config-create.sh
 
-#WORKDIR 	/var/www/
-
 ENTRYPOINT	["sh", "wp-config-create.sh"]
 
 # force to stay in foreground and ignore daemonize option from config file
